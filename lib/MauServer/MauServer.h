@@ -11,11 +11,29 @@
 #include <ArduinoJson.h>
 #include <ArduinoJson.hpp>
 #include <ConfigM.h>
-#include <WifiConexion.h>
+#include <Wifi.h>
 #include <FuncionesUtiles.h>
 #include <Luz.h>
+#include <Interruptor.h>
 
+class MauServer
+{
+private:
+    static MauServer *instance_mauServer;
+    AsyncWebServer *server;
+    Interruptor *luz;
+    Interruptor *led_testigo;
 
+    void saludar(); // da un mensaje de bienvenida por consola
+    void establecerConexion();
+    MauServer(int pin_led,int pin_rele);
+    //MauServer(); // constructor generico
+    //~MauServer(); // destructor de clase, estos destructores arrojan error si estan descomentados...
+public:
+    static MauServer* getInstance(int pin_led, int pin_rele);
+    //static MauServer* getInstance(); // en caso de necesitar una instancia sin parametros
+    
+};
 
 void iniciarServer(int led_1, int pin_rele, bool serial_port); // metodo principal inicia el servidor y todos sus servicios
 

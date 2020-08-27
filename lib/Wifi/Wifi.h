@@ -1,4 +1,4 @@
-/**** WifiConexion ****/
+/**** Wifi ****/
 /* Esta libreria se encarga de conectar un esp8266 a la red wifi */
 #pragma once
 
@@ -9,9 +9,18 @@
 #include <ESP8266WiFi.h>
 #include <ConfigM.h>
 #include <FuncionesUtiles.h>
+#include <Interruptor.h>
 
-  bool iniciarConexionWifi(int led);
+class Wifi
+{
+private:
+  static Wifi *instance_wifi;
+  Wifi();
+ //~Wifi(); // destructor de clase
+public:
+    static Wifi* begin();
+    bool establecerConexion();
 
-  bool iniciarConexionWifi();
+};
   
 #endif
