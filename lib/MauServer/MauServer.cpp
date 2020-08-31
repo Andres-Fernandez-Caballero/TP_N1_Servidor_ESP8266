@@ -9,11 +9,30 @@ void MauServer::saludar()
 
 void MauServer::establecerConexion()
 {
-   
- // TODO: colocar la logica de conexion wifi aca
+     
+   print("Conectando a ");
+   print(RED_HOGAR);
+   println(" : ");
+   print(" [ ");
+   Wifi *wifi = Wifi::begin();
+   while (!wifi->isConected())
+   {
+       print(".");
+       led_testigo->changeState();
+
+       delay(200);
+   }
+   led_testigo->changeState(LOW);
+   println(" ] ");
 
    
+   print("conexion establecida a ");
+   println(RED_HOGAR);
+   print("direccion ip: ");
+   println(wifi->getIp());
 }
+
+
 
 MauServer::MauServer(int pin_led, int pin_rele)
 {
@@ -29,6 +48,18 @@ MauServer::MauServer(int pin_led, int pin_rele)
     luz = new Interruptor(pin_rele);        // inicio mi objeto interruptor luz (interruptor de alta).
 
     establecerConexion();
+
+    LittleFS.begin();
+
+    server->begin();
+    
+    server->serveStatic("/", LittleFS, "/").setDefaultFile("index.html");
+    
+    server->onNotFound([](AsyncWebServerRequest *request) {
+        request->send(400, "text/plain", "Not found");
+    });
+
+    
 
     saludar();
 }

@@ -5,7 +5,7 @@
 void setup() {
     
  // iniciarServer(3,4,true);
- MauServer::getInstance(5,LED_BUILTIN);
+ MauServer::getInstance(LED_BUILTIN,3);
 
 }
 

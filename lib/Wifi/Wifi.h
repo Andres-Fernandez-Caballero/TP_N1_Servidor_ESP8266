@@ -19,7 +19,8 @@ private:
  //~Wifi(); // destructor de clase
 public:
     static Wifi* begin();
-    bool establecerConexion();
+    bool isConected();
+    String getIp();
 
 };
   

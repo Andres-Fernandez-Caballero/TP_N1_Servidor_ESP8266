@@ -13,19 +13,9 @@ Wifi::Wifi()
 
     WiFi.config(ip, gateway, subnet); // configuro la red wifi estatica
 #endif
-/*
-    WiFi.begin(RED_HOGAR, PASSWORD);
-    
-    while (WiFi.status() != WL_CONNECTED)   
-    {
-        led_testigo.changeState();
-        Serial.print(".");
-    }
 
-    Serial.println();
-    Serial.println("conectado");
-    
-*/
+ WiFi.begin(RED_HOGAR,PASSWORD);
+
 }
 
 Wifi *Wifi::begin()
@@ -37,7 +27,11 @@ Wifi *Wifi::begin()
     return instance_wifi;
 }
 
-bool Wifi::establecerConexion()
+bool Wifi::isConected()
 {
     return WiFi.status() == WL_CONNECTED ? true : false; 
+}
+
+String Wifi::getIp(){
+    return WiFi.localIP().toString();
 }
