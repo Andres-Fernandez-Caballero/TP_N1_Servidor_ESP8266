@@ -1,4 +1,5 @@
 #include <MauServer.h>
+#include <Rutas.cpp>
 
 MauServer *MauServer::instance_mauServer = NULL;
 
@@ -56,19 +57,11 @@ MauServer::MauServer(int pin_led, int pin_rele)
 
     server->begin(); // inicio el servidor asincronico
     
-    server->serveStatic("/", LittleFS, "/").setDefaultFile("index.html"); // asigno a la ruta "/" el archivo index.html
-    
-    server->onNotFound([](AsyncWebServerRequest *request) { // asigno una respuesta cuando no encuentra una ruta valida
-        request->send(400, "text/plain", "Not found");
-    });
-
-    // metodo GET   /* 
-    server->on("/api/luz", HTTP_GET, [&](AsyncWebServerRequest *request){
-        request->send(200, "application/json", getInterruptorLuz()->ToJson() );
-    });
-    
-    // metodo PATCH
-    // inserte aca
+    /************ carga de rutas *************/ 
+    pageRoot(); //pagina de inicio
+    pageNotFound(); // ruta en caso de no encontrar un recurso
+    apiGet(); // ruta api get la ruta se encuentra en ConfigM.h
+    apiPatch(); // ruta api patch, actualizacion de datos la ruta se encuentra en ConfigM.h
 
     saludar();
 }

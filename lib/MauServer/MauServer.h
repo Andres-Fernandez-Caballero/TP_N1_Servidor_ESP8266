@@ -22,6 +22,12 @@ private:
     AsyncWebServer *server;
     Interruptor *luz;
     Interruptor *led_testigo;
+    
+    void pageRoot();
+    void pageNotFound();
+    void apiGet();
+    void apiPatch();
+
 
     void saludar(); // da un mensaje de bienvenida por consola
     void establecerConexion();
@@ -31,6 +37,8 @@ private:
 public:
     static MauServer* getInstance(int pin_led, int pin_rele);
     Interruptor* getInterruptorLuz();
+
+    
     //static MauServer* getInstance(); // en caso de necesitar una instancia sin parametros
     
 };

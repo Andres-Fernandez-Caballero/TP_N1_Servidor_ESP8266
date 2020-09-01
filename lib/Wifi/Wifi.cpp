@@ -34,4 +34,4 @@ bool Wifi::isConected()
 
 String Wifi::getIp(){
     return WiFi.localIP().toString();
-}
+} 

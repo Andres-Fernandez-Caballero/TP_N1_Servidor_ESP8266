@@ -17,6 +17,7 @@
 
 /* Configuracion del Servidor */
 #define SERVER_PORT 80 // puerto del servidor
+#define API_ROUTE "/api/luz"
 
 /* Configuracion de WiFi */
 #define IP_FIJA // comente esta linea para que el servidor elija automaticamente la direccion IP
