@@ -21,7 +21,23 @@
 /* Configuracion de WiFi */
 #define IP_FIJA // comente esta linea para que el servidor elija automaticamente la direccion IP
 #ifdef IP_FIJA
-    #define IP 25  //ej: 192.168.0.IP
+    // direccion ip fija
+    #define IP_A 192
+    #define IP_B 168
+    #define IP_C 0
+    #define IP_D 25  //ej: 192.168.0.25
+
+    // direccion puerta acceso
+    #define IPA_A 192
+    #define IPA_B 168
+    #define IPA_C 0
+    #define IPA_D 1  //ej: 192.168.0.1
+
+    //mascara de red
+    #define MASK_A 255
+    #define MASK_B 255
+    #define MASK_C 255
+    #define MASK_D 0  //ej: 255.255.255.0
 #endif
 
 #define RED_HOGAR "Mau Hogar 2.4GHz" // ssid de la red

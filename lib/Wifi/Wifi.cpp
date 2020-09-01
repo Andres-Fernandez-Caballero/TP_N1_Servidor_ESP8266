@@ -7,9 +7,9 @@ Wifi::Wifi()
     WiFi.mode(WIFI_STA); // wifi en modo station osea el modo normal de conexion
 
 #ifdef IP_FIJA
-    IPAddress ip(192, 168, 0, IP);      //ip fija
-    IPAddress gateway(192, 168, 0, 1);  // ip de la pierta de acceso
-    IPAddress subnet(255, 255, 255, 0); // mascara de red
+    IPAddress ip(IP_A, IP_B, IP_C, IP_D);      //ip fija
+    IPAddress gateway(IPA_A, IPA_B, IPA_C, IPA_D);  // ip de la pUerta de acceso
+    IPAddress subnet(MASK_A, MASK_B, MASK_C, MASK_D); // mascara de red
 
     WiFi.config(ip, gateway, subnet); // configuro la red wifi estatica
 #endif

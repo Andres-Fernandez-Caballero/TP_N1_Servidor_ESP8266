@@ -9,6 +9,8 @@
 #define INTERRUPTOR_H
 
 #include <Arduino.h>
+#include <ArduinoJson.h>
+#include <ArduinoJson.hpp>
 
 class Interruptor
 {
@@ -25,6 +27,7 @@ public:
     void changeState(bool new_state); // cambia el estado del interruptor a uno especificado por parametro ( si no le veo sentido pero podria servir supongo).
     bool isOn(); // retorna el estado del interruptor tru si esta encendido y false si esta apagado.
     String ToString(); // devuevle un strig con el contenido del objeto formateado
+    String ToJson();
 };
 
 #endif

@@ -32,7 +32,9 @@ void MauServer::establecerConexion()
    println(wifi->getIp());
 }
 
-
+Interruptor*  MauServer::getInterruptorLuz(){
+    return this->luz;
+}
 
 MauServer::MauServer(int pin_led, int pin_rele)
 {
@@ -42,24 +44,31 @@ MauServer::MauServer(int pin_led, int pin_rele)
     Serial.begin(BAUD_SPEED);
 #endif
 
+
     server = new AsyncWebServer(SERVER_PORT); // inicio el servidor asyncronico
 
     led_testigo = new Interruptor(pin_led); // inicio mi objeto interruptor led_testigo.
-    luz = new Interruptor(pin_rele);        // inicio mi objeto interruptor luz (interruptor de alta).
+    luz = new Interruptor(pin_rele); // inicio mi objeto interruptor luz (interruptor de alta). 
 
     establecerConexion();
 
-    LittleFS.begin();
+    LittleFS.begin(); // inicio la coneccion a la memoria flash del nodemcu
 
-    server->begin();
+    server->begin(); // inicio el servidor asincronico
     
-    server->serveStatic("/", LittleFS, "/").setDefaultFile("index.html");
+    server->serveStatic("/", LittleFS, "/").setDefaultFile("index.html"); // asigno a la ruta "/" el archivo index.html
     
-    server->onNotFound([](AsyncWebServerRequest *request) {
+    server->onNotFound([](AsyncWebServerRequest *request) { // asigno una respuesta cuando no encuentra una ruta valida
         request->send(400, "text/plain", "Not found");
     });
 
+    // metodo GET   /* 
+    server->on("/api/luz", HTTP_GET, [&](AsyncWebServerRequest *request){
+        request->send(200, "application/json", getInterruptorLuz()->ToJson() );
+    });
     
+    // metodo PATCH
+    // inserte aca
 
     saludar();
 }
@@ -71,54 +80,4 @@ MauServer *MauServer::getInstance(int pin_led, int pin_rele)
         instance_mauServer = new MauServer(pin_led, pin_rele);
     }
     return instance_mauServer;
-}
-
-/**************************************************/
-/* variables 
-globales */
-
-AsyncWebServer server(SERVER_PORT); //inicio el objeto webserver
-Luz luz;                            //creo un objeto luz
-
-/* eventos de servidor */
-
-// pagina de inicio
-void serverHtmlRoot(char *root, char *file_path)
-{
-    server.serveStatic("/", LittleFS, root)
-        .setDefaultFile(file_path);
-}
-
-// evento en caso de no encontrar pagina
-void serverOnNotFound()
-{
-    server.onNotFound([](AsyncWebServerRequest *request) {
-        request->send(400, "text/plain", "Not found");
-    });
-}
-
-void getLuz(AsyncWebServerRequest *request)
-{
-    request->send(200, "text/plain", luz.getState());
-}
-
-void iniciarServer(int led_1, int pin_rele, bool serial_port)
-{
-    if (serial_port)
-    {
-        Serial.begin(BAUD_SPEED);
-    }
-
-    //iniciarConexionWifi();
-
-    luz.begin(pin_rele);
-    LittleFS.begin();
-
-    serverHtmlRoot("/", "index.html");
-    serverOnNotFound();
-    server.on("/api/luz", HTTP_GET, getLuz);
-
-    server.begin();
-
-    println("Servidor Iniciado ^o^");
 }
