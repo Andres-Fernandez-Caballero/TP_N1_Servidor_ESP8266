@@ -20,6 +20,7 @@ class MauServer
 private:
     static MauServer *instance_mauServer;
     AsyncWebServer *server;
+    AsyncWebSocket *socket;
     Interruptor *luz;
     Interruptor *led_testigo;
     
@@ -27,6 +28,8 @@ private:
     void pageNotFound();
     void apiGet();
     void apiPatch();
+
+    void iniciarSocket(AsyncWebServer server, AsyncWebSocket socket);
 
 
     void saludar(); // da un mensaje de bienvenida por consola
@@ -37,6 +40,7 @@ private:
 public:
     static MauServer* getInstance(int pin_led, int pin_rele);
     Interruptor* getInterruptorLuz();
+    void manejarServicios();
 
     
     //static MauServer* getInstance(); // en caso de necesitar una instancia sin parametros

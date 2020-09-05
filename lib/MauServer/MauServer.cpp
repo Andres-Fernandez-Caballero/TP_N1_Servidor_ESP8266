@@ -1,16 +1,36 @@
 #include <MauServer.h>
 #include <Rutas.cpp>
+#include <Servicios.cpp>
 
 MauServer *MauServer::instance_mauServer = NULL;
 
 void MauServer::saludar()
 {
+    Serial.println("****************************************");
     Serial.println("Server Iniciado ^o^");
+    Serial.println("--------------------");
+    Serial.println("Configuracion:");
+    Serial.print("Puerto del servidor -> "); Serial.println(SERVER_PORT);
+    Serial.print("Ruta Metodo GET -> "); Serial.println(API_ROUTE);
+    Serial.print("Ruta Metodo PATCH -> "); Serial.println(API_ROUTE);
+    #ifdef SERVICIO_SOCKET
+    Serial.print("Ruta WebSocket -> "); Serial.println(SOCKET_ROUTE);
+    #endif
+    Serial.println("****************************************");
+
+    
+
 }
+
+/* todavia no funciona TODO: evaluar si es viable
+void MauServer::iniciarSocket(AsyncWebServer server, AsyncWebSocket socket){
+
+}
+*/
 
 void MauServer::establecerConexion()
 {
-     
+   print("");  
    print("Conectando a ");
    print(RED_HOGAR);
    println(" : ");
@@ -48,10 +68,15 @@ MauServer::MauServer(int pin_led, int pin_rele)
 
     server = new AsyncWebServer(SERVER_PORT); // inicio el servidor asyncronico
 
+    #ifdef SERVICIO_SOCKET // si esta descomentado en ConfigM.h el socket esta habilitado
+        socket = new AsyncWebSocket(SOCKET_ROUTE);// inicio el servicio socket
+    #endif
+
     led_testigo = new Interruptor(pin_led); // inicio mi objeto interruptor led_testigo.
     luz = new Interruptor(pin_rele); // inicio mi objeto interruptor luz (interruptor de alta). 
 
     establecerConexion();
+    //iniciarSocket(*server, *socket); // todavia no!!!!
 
     LittleFS.begin(); // inicio la coneccion a la memoria flash del nodemcu
 

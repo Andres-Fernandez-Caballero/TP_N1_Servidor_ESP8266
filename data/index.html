@@ -1,12 +1,86 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Servidor esp8266</title>
+  <title>Servidor esp8266</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- favicon-->
+  <link href="data:image/x-icon;base64,AAABAAEAEBAAAAAAAABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJuWADKgmgAAm5UAFpqVAAablgAsnJYASpmUAAKblgAnm5UAKJuWAD6clgBKm5YAJZqUAASalQAJm5YAXZyXAACalQAXm5YAo1xmAACblgDrm5UAGpuWAHablgD5m5YA8ZuWAOCblgAAm5YAfpuWAIOblgDnm5UAPZuWAAeblgCam5UAAJuWAP+TkAACm5YA4ZuWADWblgDtm5YAiJuWAPGblgDgm5YAv5uWAPKblgB+mZUAEJqVAB+blgDgm5YAMQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAm5YAJZuWAP+clwD/nJcA/5uWAP6blgAiAAAAAAAAAACblgAbm5YA/pyXAP+clwD/m5YA/5uWAC4AAAAAm5UAGZyXAP+blgDVmpQAC5qVAA2blgDZnJcA/5uWAFGblgBCnJcA/5uWAOGalAAQmpUACpuWAMyclwD/m5YAJZuWAPublgDmmZUAAAAAAAAAAAAAAAAAAJuWAJKclwD/nJcA/5uWAKackwAAm5UANpqUABWZlQAAm5YA25uWAP6clwD/m5YAQZuXAACblwD5m5cA+ZqXAAaZlAAAm5YA/5uWAP+alQAAmpcABpuWAPublgD6nZgAAJuWACyclwD/nJcA/5uWAJ8AAAAAAAAAAAAAAAAAAAAAm5YAGpyXAP+clwD/mpYAIgAAAACblgBcm5UAJAAAAACblgCLnJcA/5uWAHmclwD/m5YALAAAAAAAAAAAm5YAL5yXAP+blgDXm5YAy5yXAP+blQA3AAAAAAAAAACblQAknJcA/5uWAIyZlQAAm5YAxpyXAP+clwD/nJcA/5yXAP+blgDHmpQAAJqXAACblgC7nJcA/5yXAP+clwD/nJcA/5uWANGakQAGAAAAAAAAAACYkgACm5YAVZuWAFGYlAABAAAAAAAAAAAAAAAAAAAAAJeUAACblgBOm5YAWJmSAAOZjwAAm5MAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//8AAP//AAD//wAArGYAAKgdAAD//wAAw8MAAJmZAAA8PAAAZmYAAD58AAC8PAAAgYEAAP//AAD//wAA//8AAA==" rel="icon" type="image/x-icon" />
+  
+  <!--98.css style -->
+  <link rel="stylesheet" href="https://unpkg.com/98.css" />
+  <link rel="stylesheet" href="http://jdan.github.io/98.css/docs.css"/>
+  <link rel="stylesheet" href="http://jdan.github.io/98.css/vs.css"/>
+
 </head>
-<body>
-    <h1>Servidor web</h1>
-    
+
+<body ontouchstart>
+  <div id="app">
+  <aside>
+    <ul class="tree-view">
+      <li><a href="#inicio"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Introducción</font></font></a></li>
+      <li><a href="#formulario">Formulario</a></li>
+      <li><a href="#api">API</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
+  </aside>
+  <main>
+    <h1 id="inicio">{{titulo}}</h1>
+    <hr>
+    <div class="window" style="margin: 4em; ">
+      <div class="title-bar">
+        <div class="title-bar-text">
+          Esp-01
+        </div>
+      </div>
+      <div class="window-body" style="margin: 2em;">
+        <div>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/ESP-01.jpg/375px-ESP-01.jpg" 
+               alt="modulo wifi esp-01" 
+               style=" width: 100%; height: auto; "
+               width="360" 
+               height="360" 
+               >
+        </div>
+        
+        <p>El ESP8266 es un chip de bajo costo Wi-Fi con un stack TCP/IP completo y un microcontrolador, fabricado por Espressif, una empresa afincada en Shanghái, China​
+  
+          El primer chip se hace conocido en los mercados alrededor de agosto de 2014 con el módulo ESP-01, desarrollado por la empresa AI-Thinker. Este pequeño módulo permite a otros microcontroladores conectarse a un red inalámbrica Wi-Fi y realizar conexiones simples con TCP/IP usando comandos al estilo Hayes.</p>
+          <a class="button" href="https://es.wikipedia.org/wiki/ESP8266">leer mas</a>
+      </div>
+    </div>
+
+    <h2 id="api">API</h2>
+    <section>
+      <blockquote>
+        <p>Una API (siglas de 'Application Programming Interface') es un conjunto de reglas (código) y especificaciones que las aplicaciones pueden seguir para comunicarse entre ellas: sirviendo de interfaz entre programas diferentes de la misma manera en que la interfaz de usuario facilita la interacción humano-software</p>
+        <p></p>
+      </blockquote>
+    </section>
+
+    <h2>Estado luz</h2>
+    <section>
+      <p>Estado: <span id="divEstado"></span></p>
+    </section>
+    <h2 id="formulario">Formulario</h2>
+    <section>
+      <form action="/form" method="POST">
+        <label id="campoTexto">Campo de Texto</label>
+        <input type="campoTexto" name="text" id="campoTexto">
+        <button type="submit">Guardar</button>
+      </form>
+    </section>
+    <h2 id="about">About.</h2>
+    <section>
+      <blockquote>
+        <p>Electricat es una empresa de desarrollo de soluciones inteligentes y creativas, teniendo como pilares fundamentales el arte y la eficiencia.</p>
+      </blockquote>
+    </section>
+  </main>
+</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+  <script src="src/js/app.js"></script>
+  <script src="src/js/socket.js"></script>
 </body>
 </html>

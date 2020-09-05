@@ -17,8 +17,12 @@
 
 /* Configuracion del Servidor */
 #define SERVER_PORT 80 // puerto del servidor
-#define API_ROUTE "/api/luz"
+#define API_ROUTE "/api/luz" 
 
+//#define SERVICIO_SOCKET
+#ifdef SERVICIO_SOCKET
+    #define SOCKET_ROUTE "/estado_luz" // rutal para comunicarse con el socket
+#endif
 /* Configuracion de WiFi */
 #define IP_FIJA // comente esta linea para que el servidor elija automaticamente la direccion IP
 #ifdef IP_FIJA
@@ -47,7 +51,7 @@
 //#define RED_HOGAR "wifi POP!" // ssid para el wifi del celular
 //#define PASSWORD "hell0ween" // pass para wifi del celular
 
-#define TIME_UP 10000 // limite de espera de conexion wifi medido en milisegundos
+//#define TIME_UP 10000 // limite de espera de conexion wifi medido en milisegundos
 
 /* Configuracion OTA */
 #define OTA_PORT 8266 // puerto de OTA
