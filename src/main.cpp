@@ -2,15 +2,13 @@
 #include <MauServer.h>
 //#include <ESP_01_Diagrama.h>
 
-MauServer *server;
 
 void setup() {
-    
- // iniciarServer(3,4,true);
-    server = MauServer::getInstance(LED_BUILTIN,3);
 
+     MauServer::getInstance();
 }
 
 void loop() {
-    server->manejarServicios(); 
+
+    MauServer::getInstance()->manejarServicios(); 
 }

@@ -12,7 +12,6 @@
 #include <ArduinoJson.hpp>
 #include <ConfigM.h>
 #include <Wifi.h>
-#include <FuncionesUtiles.h>
 #include <Interruptor.h>
 
 class MauServer
@@ -20,7 +19,6 @@ class MauServer
 private:
     static MauServer *instance_mauServer;
     AsyncWebServer *server;
-    AsyncWebSocket *socket;
     Interruptor *luz;
     Interruptor *led_testigo;
     
@@ -29,22 +27,17 @@ private:
     void apiGet();
     void apiPatch();
 
-    void iniciarSocket(AsyncWebServer server, AsyncWebSocket socket);
-
-
     void saludar(); // da un mensaje de bienvenida por consola
     void establecerConexion();
+    void iniciarServicios();
     MauServer(int pin_led,int pin_rele);
     //MauServer(); // constructor generico
     //~MauServer(); // destructor de clase, estos destructores arrojan error si estan descomentados...
 public:
-    static MauServer* getInstance(int pin_led, int pin_rele);
+    static MauServer* getInstance();
     Interruptor* getInterruptorLuz();
+    Interruptor* getInterruptorLuzTestigo();
     void manejarServicios();
-
-    
-    //static MauServer* getInstance(); // en caso de necesitar una instancia sin parametros
-    
 };
 
 #endif

@@ -1,14 +1,17 @@
 #include <MauServer.h>
+#include <ActualizacionOta.h>
+
+
+void MauServer::iniciarServicios(){
+    
+    ActualizacionOta::getInstance()->begin();   
+}
 
 void MauServer::manejarServicios(){
 
-   
-    // si tengo habilitado el servicio socket entonces envio el estado del interruptor por el mismo
-    #ifdef SERVICIO_SOCKET
     
-        
-
-        Serial.println(getInterruptorLuz()->ToString());
-        socket->textAll(getInterruptorLuz()->isOn()? "true" : "false");
+    #ifdef SERVICIO_OTA
+        ActualizacionOta::getInstance()->handleOta();
     #endif
+   
 }

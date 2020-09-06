@@ -13,48 +13,39 @@ void MauServer::saludar()
     Serial.print("Puerto del servidor -> "); Serial.println(SERVER_PORT);
     Serial.print("Ruta Metodo GET -> "); Serial.println(API_ROUTE);
     Serial.print("Ruta Metodo PATCH -> "); Serial.println(API_ROUTE);
-    #ifdef SERVICIO_SOCKET
-    Serial.print("Ruta WebSocket -> "); Serial.println(SOCKET_ROUTE);
-    #endif
     Serial.println("****************************************");
-
-    
-
 }
-
-/* todavia no funciona TODO: evaluar si es viable
-void MauServer::iniciarSocket(AsyncWebServer server, AsyncWebSocket socket){
-
-}
-*/
 
 void MauServer::establecerConexion()
 {
-   print("");  
-   print("Conectando a ");
-   print(RED_HOGAR);
-   println(" : ");
-   print(" [ ");
-   Wifi *wifi = Wifi::begin();
-   while (!wifi->isConected())
+   Serial.println();  
+   Serial.print("Conectando a ");
+   Serial.print(RED_HOGAR);
+   Serial.println(" : ");
+   Serial.print(" [ ");
+    Wifi::getInstance();
+   while (!Wifi::getInstance()->isConected())
    {
-       print(".");
+       Serial.print(".");
        led_testigo->changeState();
 
        delay(200);
    }
    led_testigo->changeState(LOW);
-   println(" ] ");
-
+   Serial.println(" ] ");
    
-   print("conexion establecida a ");
-   println(RED_HOGAR);
-   print("direccion ip: ");
-   println(wifi->getIp());
+   Serial.print("conexion establecida a ");
+   Serial.println(RED_HOGAR);
+   Serial.print("direccion ip: ");
+   Serial.println(Wifi::getInstance()->getIp());
 }
 
 Interruptor*  MauServer::getInterruptorLuz(){
     return this->luz;
+}
+
+Interruptor* MauServer::getInterruptorLuzTestigo(){
+    return this->led_testigo;
 }
 
 MauServer::MauServer(int pin_led, int pin_rele)
@@ -65,21 +56,17 @@ MauServer::MauServer(int pin_led, int pin_rele)
     Serial.begin(BAUD_SPEED);
 #endif
 
-
     server = new AsyncWebServer(SERVER_PORT); // inicio el servidor asyncronico
-
-    #ifdef SERVICIO_SOCKET // si esta descomentado en ConfigM.h el socket esta habilitado
-        socket = new AsyncWebSocket(SOCKET_ROUTE);// inicio el servicio socket
-    #endif
 
     led_testigo = new Interruptor(pin_led); // inicio mi objeto interruptor led_testigo.
     luz = new Interruptor(pin_rele); // inicio mi objeto interruptor luz (interruptor de alta). 
 
     establecerConexion();
-    //iniciarSocket(*server, *socket); // todavia no!!!!
 
     LittleFS.begin(); // inicio la coneccion a la memoria flash del nodemcu
 
+    iniciarServicios();
+    
     server->begin(); // inicio el servidor asincronico
     
     /************ carga de rutas *************/ 
@@ -91,10 +78,13 @@ MauServer::MauServer(int pin_led, int pin_rele)
     saludar();
 }
 
-MauServer *MauServer::getInstance(int pin_led, int pin_rele)
+MauServer *MauServer::getInstance()
 {
     if (instance_mauServer == NULL)
     {
+        int pin_led = PIN_LED_TESTIGO;
+        int pin_rele = PIN_RELE;
+
         instance_mauServer = new MauServer(pin_led, pin_rele);
     }
     return instance_mauServer;

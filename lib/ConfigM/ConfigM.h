@@ -1,6 +1,8 @@
 
 /*** ConfigM.h ***/
-/* Libreria encargada de las constantes de configuracion globales y unificadas */
+/* Libreria encargada de las constantes de configuracion globales y unificadas.    */
+/* Tome esta idea de el proyecto marlin par el control de las impresoras 3D        */
+/* en el que las opciones se manejan solo modificando el archivo config que posee. */
 
 #pragma once
 
@@ -12,17 +14,15 @@
 #include <ESP8266WiFi.h>
 
 /* Configuracion de puerto serie */
-
 #define BAUD_SPEED 115200 // velocidad del monitor serie, comente esta linea para deshabilitar la salida de terminal 
 
 /* Configuracion del Servidor */
 #define SERVER_PORT 80 // puerto del servidor
-#define API_ROUTE "/api/luz" 
+#define API_ROUTE "/api/luz" // la ruta para llamar a la api
 
-//#define SERVICIO_SOCKET
-#ifdef SERVICIO_SOCKET
-    #define SOCKET_ROUTE "/estado_luz" // rutal para comunicarse con el socket
-#endif
+#define PIN_RELE 3 // pin que acciona el rele de la luz
+#define PIN_LED_TESTIGO 2 // pin que sirve para dar informacion del servidor
+
 /* Configuracion de WiFi */
 #define IP_FIJA // comente esta linea para que el servidor elija automaticamente la direccion IP
 #ifdef IP_FIJA
@@ -48,13 +48,12 @@
 #define RED_HOGAR "Mau Hogar 2.4GHz" // ssid de la red
 #define PASSWORD "DorianElGris" // password de la red
 
-//#define RED_HOGAR "wifi POP!" // ssid para el wifi del celular
-//#define PASSWORD "hell0ween" // pass para wifi del celular
-
-//#define TIME_UP 10000 // limite de espera de conexion wifi medido en milisegundos
-
 /* Configuracion OTA */
-#define OTA_PORT 8266 // puerto de OTA
-#define OTA_HOSTNAME "Web Server Luz"
+//#define SERVICIO_OTA
+#ifdef SERVICIO_OTA
+    #define OTA_PORT 8266 // puerto de OTA
+    #define OTA_HOSTNAME "Web Server Luz"
+    #define OTA_PASSWORD "actualizate_de_esta"
+#endif
 
 #endif

@@ -8,7 +8,6 @@
 #include <Arduino.h>
 #include <ESP8266WiFi.h>
 #include <ConfigM.h>
-#include <FuncionesUtiles.h>
 #include <Interruptor.h>
 
 class Wifi
@@ -18,10 +17,9 @@ private:
   Wifi();
  //~Wifi(); // destructor de clase
 public:
-    static Wifi* begin();
+    static Wifi* getInstance();
     bool isConected();
     String getIp();
-
 };
   
 #endif

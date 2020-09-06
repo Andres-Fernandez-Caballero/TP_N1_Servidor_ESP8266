@@ -18,7 +18,7 @@ Wifi::Wifi()
 
 }
 
-Wifi *Wifi::begin()
+Wifi *Wifi::getInstance()
 {
     if (instance_wifi == NULL)
     {
