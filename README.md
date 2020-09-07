@@ -19,8 +19,15 @@ En este trabajo practico monte un servidor web relativamente simple en un modulo
 ## Instrucciones
 Estas instrucciones te permitirán obtener una copia del proyecto en funcionamiento en tu máquina
 
-*este proyecto esta escrito en c++ y usa la el entorno de desarrollo plataformio por lo que se debe de instar. [instrucciones de instalacion](https://docs.platformio.org/en/latest/what-is-platformio.html).
+* Este proyecto esta escrito en c++ y usa la el entorno de desarrollo plataformio por lo que se debe de instar. [instrucciones de instalacion](https://docs.platformio.org/en/latest/what-is-platformio.html).
 
-*En el archivo configM.h configure sus valores de red y parametros deseados, todas las configuraciones se encuentran ahi, exepto el la configuracion del pin testigo y el pin del interruptor que se encuentran en el main del programa</li>
-</ul>
-</article>
+* Descargar el archivo de github [proyecto](https://github.com/Andres-Fernandez-Caballero/TP_N1_Servidor_ESP8266).
+
+* En el archivo configM.h configure sus valores de red y parametros deseados, todas las configuraciones se encuentran ahi, bastara con solo modificar este codigo para hacer funcionar el protecto en su maquina.
+
+* En caso de tener problemas con las bibliotecas de asyncwebserver y arduinojson instalarlas desde el "home" de platformio.
+
+* Para compilar solo debe buscar la opcion upload y upload file system (ejecutar ambos comandos), en las opciones del panel de platformio en el editor de codigo elegido.
+
+## Cosas que quedaron pendientes
+En este proyecto y por la falta de tiempo quedo pendiente la implementacion de websocket para el refresco de informacion en tiempo real. Una pagina web funcional que llame a los metodos api.
