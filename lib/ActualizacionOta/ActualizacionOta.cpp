@@ -20,6 +20,7 @@ ActualizacionOta::ActualizacionOta(){
   // MD5(admin) = 21232f297a57a5a743894a0e4a801fc3
   // ArduinoOTA.setPasswordHash("21232f297a57a5a743894a0e4a801fc3");
   #endif
+/*  
   ArduinoOTA.onStart([]() {
     String type;
     if (ArduinoOTA.getCommand() == U_FLASH) {
@@ -61,6 +62,7 @@ ActualizacionOta::ActualizacionOta(){
       Serial.println("End Failed");
     }
   });
+  */
 }
 
 ActualizacionOta *ActualizacionOta::getInstance(){
@@ -71,11 +73,11 @@ ActualizacionOta *ActualizacionOta::getInstance(){
 }
 
 void ActualizacionOta::begin(){
-  ArduinoOTA.begin();
+  //ArduinoOTA.begin();
   Serial.println("servicio ota inicado");
 }
 
 void ActualizacionOta::handleOta(){
-  ArduinoOTA.handle();
+ // ArduinoOTA.handle();
 }
 

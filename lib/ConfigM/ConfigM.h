@@ -20,8 +20,21 @@
 #define SERVER_PORT 80 // puerto del servidor
 #define API_ROUTE "/api/luz" // la ruta para llamar a la api
 
-#define PIN_RELE 3 // pin que acciona el rele de la luz
-#define PIN_LED_TESTIGO 2 // pin que sirve para dar informacion del servidor
+/*** equivalencia de pines ***/
+// pin --- GPIO
+// ------------
+// D0 --- 16
+// D1 --- 5
+// D2 --- 4
+// D3 --- 0
+// D4 --- 2
+// D5 --- 14
+// D6 --- 12
+// D7 --- 13
+// D8 --- 15
+
+#define PIN_RELE 0 // pin que acciona el rele de la luz en base a la tabla elegir el GPIO correspondiente
+#define PIN_LED_TESTIGO 2 // pin testigo estados del servidor en base a la tabla elegir el GPIO correspondiente
 
 /* Configuracion de WiFi */
 #define IP_FIJA // comente esta linea para que el servidor elija automaticamente la direccion IP

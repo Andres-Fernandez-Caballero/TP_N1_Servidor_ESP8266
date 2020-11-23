@@ -3,8 +3,9 @@
 
 
 void MauServer::iniciarServicios(){
-    
-    ActualizacionOta::getInstance()->begin();   
+    #ifdef SERVICIO_OTA
+        ActualizacionOta::getInstance()->begin();
+    #endif   
 }
 
 void MauServer::manejarServicios(){
